@@ -2,23 +2,57 @@
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    
 
 	public MainPage()
 	{
-		InitializeComponent();
-	}
+		InitializeComponent();        
+    }
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+    public void ToggleAccelerometer()
+    {
+        if (Accelerometer.Default.IsSupported)
+        {
+            if (!Accelerometer.Default.IsMonitoring)
+            {
+                // Turn on accelerometer
+                Accelerometer.Default.ReadingChanged += Accelerometer_ReadingChanged;
+                Accelerometer.Default.Start(SensorSpeed.UI);
+            }
+            else
+            {
+                // Turn off accelerometer
+                Accelerometer.Default.Stop();
+                Accelerometer.Default.ReadingChanged -= Accelerometer_ReadingChanged;
+            }
+        }
+    }
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+    private void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
+    {
+        // Update UI Label with accelerometer state
+        AccelLabel.TextColor = Colors.Green;
+        AccelLabel.Text = $"Accel: {e.Reading}";
+    }
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+    private void Switch_Accel_Toggled(object sender, ToggledEventArgs e)
+    {
+        if (Accelerometer.Default.IsSupported)
+        {
+            if (Switch_Accel.IsToggled)
+            {
+                // Turn on accelerometer
+                Accelerometer.Default.ReadingChanged += Accelerometer_ReadingChanged;
+                Accelerometer.Default.Start(SensorSpeed.UI);
+            }
+            else
+            {
+                // Turn off accelerometer
+                Accelerometer.Default.Stop();
+                Accelerometer.Default.ReadingChanged -= Accelerometer_ReadingChanged;
+            }
+        }
+
+    }
 }
 
