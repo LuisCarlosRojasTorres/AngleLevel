@@ -11,13 +11,25 @@
 
             <Switch x:Name="Switch_Accel" HorizontalOptions="Center" IsToggled="False" Toggled="Switch_Accel_Toggled"/>
             <Label
-                x:Name="AccelLabel"
-                Text="0"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
+                x:Name="AccelLabelX"
+                Text="0"                
+                FontSize="Default"
                 HorizontalOptions="Center" />
-
-
+            <Label
+                x:Name="AccelLabelY"
+                Text="0"                
+                FontSize="Default"
+                HorizontalOptions="Center" />
+            <Label
+                x:Name="AccelLabelZ"
+                Text="0"                
+                FontSize="Default"
+                HorizontalOptions="Center" />
+            <Label
+                x:Name="AngleV"
+                Text="0"                
+                FontSize="Default"
+                HorizontalOptions="Center" />
 
             <Button
                 x:Name="Btn_Frontal"

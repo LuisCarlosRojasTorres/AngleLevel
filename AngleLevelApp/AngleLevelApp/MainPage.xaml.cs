@@ -2,7 +2,7 @@
 
 public partial class MainPage : ContentPage
 {
-    
+    double Ax, Ay, Az, angleV, angleL;
 
 	public MainPage()
 	{
@@ -31,8 +31,17 @@ public partial class MainPage : ContentPage
     private void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
     {
         // Update UI Label with accelerometer state
-        AccelLabel.TextColor = Colors.Green;
-        AccelLabel.Text = $"Accel: {e.Reading}";
+        AccelLabelX.Text = $"X: " + e.Reading.Acceleration.X.ToString("#.##");
+        AccelLabelY.Text = $"Y: " + e.Reading.Acceleration.Y.ToString("#.##");
+        AccelLabelZ.Text = $"Z: " + e.Reading.Acceleration.Z.ToString("#.##");
+
+        Ax = e.Reading.Acceleration.X;
+        Ay = e.Reading.Acceleration.Y;
+        Az = e.Reading.Acceleration.Z;
+
+        angleV = Math.Asin(Ay)*180/Math.PI;
+
+        AngleV.Text = "AngleV: " + this.angleV.ToString("#.#");
     }
 
     private void Switch_Accel_Toggled(object sender, ToggledEventArgs e)
